@@ -1,94 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PoltorProgrammer | Digital Garden</title>
-    <style>
-        :root {
-            --primary: #6366f1;
-            --bg: #0f172a;
-            --text: #f8fafc;
-            --subtext: #94a3b8;
-        }
+    <title>PoltorProgrammer — Digital Garden</title>
+    <meta name="description"
+        content="Developer building botanical software, AI systems, language tools, games, and open source utilities.">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .container {
-            z-index: 1;
-            padding: 2rem;
-            animation: fadeIn 1.2s ease-out;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.025em;
-        }
-
-        p {
-            font-size: 1.2rem;
-            color: var(--subtext);
-            max-width: 600px;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-
-        .badge {
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            color: var(--primary);
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-        }
-
-        .glow {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <div class="glow"></div>
-    <div class="container">
-        <div class="badge">Coming Soon</div>
-        <h1>PoltorProgrammer</h1>
-        <p>Welcome to my digital garden. A space for projects, writings, resources, and everything in between.</p>
-    </div>
+
+    <!-- ── Navbar ────────────────────────────────────────── -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon"><img src="assets/logo.png" alt="PoltorProgrammer Logo" class="logo-img"></span>
+                <span>PoltorProgrammer</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="garden.html" class="nav-link">Garden</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-nav" id="mobile-nav">
+            <a href="garden.html" class="mobile-link">Garden</a>
+            <a href="contact.html" class="mobile-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ── Hero ──────────────────────────────────────────── -->
+    <section class="hero" id="hero">
+        <div class="particles-container" id="particles"></div>
+
+        <div class="hero-content">
+            <p class="hero-greeting">Hello, I'm</p>
+            <h1 class="hero-name">PoltorProgrammer</h1>
+
+            <div class="hero-typewriter">
+                <span id="typewriter"></span><span class="typewriter-cursor">|</span>
+            </div>
+
+            <div class="stats-strip">
+                <div class="stat">
+                    <span class="stat-number">29</span>
+                    <span class="stat-label">Repositories</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number">23</span>
+                    <span class="stat-label">Original Creations</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Domains</span>
+                </div>
+            </div>
+
+            <div class="hero-cta">
+                <a href="garden.html" class="btn btn-primary">
+                    <i class="fas fa-seedling"></i> Explore Garden
+                </a>
+                <a href="contact.html" class="btn btn-outline">
+                    <i class="fas fa-envelope"></i> Get in Touch
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-curve">
+            <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,0 Q360,70 720,35 Q1080,0 1440,55 L1440,70 L0,70 Z" fill="#e8f4f6" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ── About ─────────────────────────────────────────── -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-inner">
+                <span class="about-label">About</span>
+                <p class="about-text">
+                    Developer working across the full stack — building
+                    <strong>botanical cataloging systems</strong>, AI extraction pipelines,
+                    language utilities, interactive games, and open source tools.
+                    Most projects start from a real problem and end with something that actually ships.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Domains ───────────────────────────────────────── -->
+    <section class="domains-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What I Build</h2>
+                <p class="section-subtitle">Eight domains. One garden.</p>
+            </div>
+            <div class="domains-grid">
+
+                <a href="garden.html?filter=nature" class="domain-card">
+                    <div class="domain-icon-wrap nature">🌿</div>
+                    <span class="domain-name">Nature</span>
+                    <p class="domain-desc">Biology, zoology, botany, and natural science projects.</p>
+                    <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="garden.html?filter=ai" class="domain-card">
+                    <div class="domain-icon-wrap ai">🧠</div>
+                    <span class="domain-name">AI &amp; Data</span>
+                    <p class="domain-desc">Extraction pipelines, NLP, and intelligent document processing.</p>
+                    <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="garden.html?filter=medical" class="domain-card">
+                    <div class="domain-icon-wrap medical">🏥</div>
+                    <span class="domain-name">Medical</span>
+                    <p class="domain-desc">Healthcare systems, clinical trial analysis, and medical extraction tools.
+                    </p>
+                    <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="garden.html?filter=designs" class="domain-card">
+                    <div class="domain-icon-wrap designs">🎨</div>
+                    <span class="domain-name">Designs</span>
+                    <p class="domain-desc">Interactive user interfaces, modern component designs, and vector graphics.
+                    </p>
+                    <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="garden.html?filter=tools" class="domain-card">
+                    <div class="domain-icon-wrap tools">🔧</div>
+                    <span class="domain-name">Tools</span>
+                    <p class="domain-desc">Converters, markdown editors, code tools, and helper libraries.</p>
+                    <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="garden.html?filter=language" class="domain-card">
+                    <div class="domain-icon-wrap language">🌏</div>
+                    <span class="domain-name">Lenguage</span>
+                    <p class="domain-desc">Input tools, phonetic keyboards, and multilingual learning utilities.</p>
+                    <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="garden.html?filter=blogs" class="domain-card">
+                    <div class="domain-icon-wrap blogs">✍️</div>
+                    <span class="domain-name">Blogs</span>
+                    <p class="domain-desc">Personal writings, technical articles, and documentation logs.</p>
+                    <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="garden.html?filter=games" class="domain-card">
+                    <div class="domain-icon-wrap games">🎮</div>
+                    <span class="domain-name">Games</span>
+                    <p class="domain-desc">Browser-based interactive environments, visual experiments, and retro games.
+                    </p>
+                    <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ────────────────────────────────────────── -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon"><img src="assets/logo.png" alt="PoltorProgrammer Logo" class="logo-img"></span>
+                    <span>PoltorProgrammer</span>
+                </div>
+                <p class="footer-tagline">Digital Garden — vanilla HTML, CSS &amp; JS</p>
+                <p class="footer-copy">© 2026 PoltorProgrammer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/particles.js"></script>
+    <script src="js/intro.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Garden — PoltorProgrammer</title>
+    <meta name="description" content="Browse all projects — botanical apps, AI systems, language tools, games, and open source utilities.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ── Navbar ────────────────────────────────────────── -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon"><img src="assets/logo.png" alt="PoltorProgrammer Logo" class="logo-img"></span>
+                <span>PoltorProgrammer</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="garden.html"  class="nav-link active-page">Garden</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-nav" id="mobile-nav">
+            <a href="garden.html"  class="mobile-link">Garden</a>
+            <a href="contact.html" class="mobile-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ── Page Header ───────────────────────────────────── -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-header-title">The Garden</h1>
+        </div>
+        <div class="page-header-curve">
+            <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,0 Q720,40 1440,10 L1440,40 L0,40 Z" fill="#e8f4f6"/>
+            </svg>
+        </div>
+    </header>
+
+    <!-- ── Projects ──────────────────────────────────────── -->
+    <section class="projects-section" style="padding-top:3rem;">
+        <div class="container">
+
+            <div class="controls">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search projects, technologies…">
+                </div>
+                <div class="filter-tabs" id="filter-tabs">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="nature">Nature</button>
+                    <button class="filter-btn" data-filter="ai">AI &amp; Data</button>
+                    <button class="filter-btn" data-filter="medical">Medical</button>
+                    <button class="filter-btn" data-filter="language">Lenguage</button>
+                    <button class="filter-btn" data-filter="designs">Designs</button>
+                    <button class="filter-btn" data-filter="tools">Tools</button>
+                    <button class="filter-btn" data-filter="blogs">Blogs</button>
+                    <button class="filter-btn" data-filter="games">Games</button>
+                </div>
+            </div>
+
+            <div class="project-grid" id="project-grid">
+                <div class="grid-loading" id="grid-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Growing the garden…</p>
+                </div>
+            </div>
+
+            <div class="no-results" id="no-results" style="display:none">
+                <i class="fas fa-seedling"></i>
+                <p>No projects match your search.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Footer ────────────────────────────────────────── -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon"><img src="assets/logo.png" alt="PoltorProgrammer Logo" class="logo-img"></span>
+                    <span>PoltorProgrammer</span>
+                </div>
+                <p class="footer-tagline">Digital Garden — vanilla HTML, CSS &amp; JS</p>
+                <p class="footer-copy">© 2026 PoltorProgrammer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
