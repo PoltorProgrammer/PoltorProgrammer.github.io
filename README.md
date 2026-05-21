@@ -6,11 +6,11 @@ Welcome to my **Digital Garden**! I am a biologist turned self-taught programmer
 
 <p align="center">
   <a href="https://poltorprogrammer.github.io/" target="_blank">
-    <img src="https://img.shields.io/badge/🌐%20Live%20Demo-Visit%20Garden-007bff?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Live Demo Badge" height="40" />
+    <img src="https://img.shields.io/badge/Live%20Demo-Visit%20Garden-007bff?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Live Demo Badge" height="40" />
   </a>
   &nbsp;&nbsp;
-  <a href="mailto:tomasgonzalezbartomeu@gmail.com">
-    <img src="https://img.shields.io/badge/✉️%20Email%20Me-tomasgonzalezbartomeu%40gmail.com-ea4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email Badge" height="40" />
+  <a href="mailto:poltorprogrammer@gmail.com">
+    <img src="https://img.shields.io/badge/Email%20Me-poltorprogrammer%40gmail.com-ea4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email Badge" height="40" />
   </a>
 </p>
 
@@ -81,6 +81,6 @@ npx http-server
 ## 📬 Contact Details
 
 *   **Name**: Tomás González Bartomeu
-*   **Email**: [tomasgonzalezbartomeu@gmail.com](mailto:tomasgonzalezbartomeu@gmail.com)
+*   **Email**: [poltorprogrammer@gmail.com](mailto:poltorprogrammer@gmail.com)
 *   **LinkedIn**: [Tomás González](https://www.linkedin.com/in/tom%C3%A1s-gonz%C3%A1lez-bartomeu-573a98222)
 *   **GitHub**: [@PoltorProgrammer](https://github.com/PoltorProgrammer)
