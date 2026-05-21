@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PoltorProgrammer — Digital Garden</title>
     <meta name="description"
-        content="Developer building botanical software, AI systems, language tools, games, and open source utilities.">
+        content="Biologist and Data Scientist building full-stack data-driven tools, automated clinical pipelines, and AI systems.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="icon" type="image/png" href="assets/logo/logo-poltorprogrammer-squared.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -23,11 +23,12 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
-                <span class="logo-icon"><img src="assets/logo.png" alt="PoltorProgrammer Logo" class="logo-img"></span>
+                <span class="logo-icon"><img src="assets/logo/logo-poltorprogrammer-squared.png" alt="PoltorProgrammer Logo" class="logo-img"></span>
                 <span>PoltorProgrammer</span>
             </a>
             <ul class="nav-links">
-                <li><a href="garden.html" class="nav-link">Garden</a></li>
+                <li><a href="blog.html"    class="nav-link">Blog</a></li>
+                <li><a href="garden.html"  class="nav-link">Garden</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
             <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -35,7 +36,8 @@
             </button>
         </div>
         <div class="mobile-nav" id="mobile-nav">
-            <a href="garden.html" class="mobile-link">Garden</a>
+            <a href="blog.html"    class="mobile-link">Blog</a>
+            <a href="garden.html"  class="mobile-link">Garden</a>
             <a href="contact.html" class="mobile-link">Contact</a>
         </div>
     </nav>
@@ -92,11 +94,32 @@
             <div class="about-inner">
                 <span class="about-label">About</span>
                 <p class="about-text">
-                    Developer working across the full stack — building
-                    <strong>botanical cataloging systems</strong>, AI extraction pipelines,
-                    language utilities, interactive games, and open source tools.
-                    Most projects start from a real problem and end with something that actually ships.
+                    <strong>Biologist turned self-taught programmer.</strong> I build end-to-end tools — from data to interface — with a focus on ergonomics and adaptability.
+                    I care about making things easy to pick up, incorporate into existing workflows, and extend without friction.
                 </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Blog Preview ──────────────────────────────────── -->
+    <section class="blog-preview-section">
+        <div class="container">
+            <div class="blog-preview-intro">
+                <span class="about-label">Blog</span>
+                <h2 class="blog-preview-title">Each project has a story.</h2>
+                <p class="blog-preview-body">
+                    The blog is where the repositories get context — the reasoning behind the architecture, how the scope evolved, and the cross-cutting ideas that don't fit in a README.
+                    Before diving into the project list, this is the place to understand <em>why</em> things were built the way they were.
+                </p>
+                <a href="blog.html" class="btn btn-outline">
+                    <i class="fas fa-pencil-alt"></i> Read the blog
+                </a>
+            </div>
+            <div class="blog-grid" id="home-blog-grid">
+                <div class="blog-loading" id="home-blog-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading posts…</p>
+                </div>
             </div>
         </div>
     </section>
@@ -104,9 +127,10 @@
     <!-- ── Domains ───────────────────────────────────────── -->
     <section class="domains-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">What I Build</h2>
-                <p class="section-subtitle">Eight domains. One garden.</p>
+            <div class="domains-intro">
+                <span class="about-label">Garden</span>
+                <h2 class="blog-preview-title">What I Build</h2>
+                <p class="blog-preview-body">Seven domains. One garden.</p>
             </div>
             <div class="domains-grid">
 
@@ -127,16 +151,14 @@
                 <a href="garden.html?filter=medical" class="domain-card">
                     <div class="domain-icon-wrap medical">🏥</div>
                     <span class="domain-name">Medical</span>
-                    <p class="domain-desc">Healthcare systems, clinical trial analysis, and medical extraction tools.
-                    </p>
+                    <p class="domain-desc">Healthcare systems, clinical trial analysis, and medical extraction tools.</p>
                     <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
                 </a>
 
                 <a href="garden.html?filter=designs" class="domain-card">
                     <div class="domain-icon-wrap designs">🎨</div>
                     <span class="domain-name">Designs</span>
-                    <p class="domain-desc">Interactive user interfaces, modern component designs, and vector graphics.
-                    </p>
+                    <p class="domain-desc">Interactive user interfaces, modern component designs, and vector graphics.</p>
                     <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
                 </a>
 
@@ -149,23 +171,15 @@
 
                 <a href="garden.html?filter=language" class="domain-card">
                     <div class="domain-icon-wrap language">🌏</div>
-                    <span class="domain-name">Lenguage</span>
+                    <span class="domain-name">Language</span>
                     <p class="domain-desc">Input tools, phonetic keyboards, and multilingual learning utilities.</p>
-                    <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
-                </a>
-
-                <a href="garden.html?filter=blogs" class="domain-card">
-                    <div class="domain-icon-wrap blogs">✍️</div>
-                    <span class="domain-name">Blogs</span>
-                    <p class="domain-desc">Personal writings, technical articles, and documentation logs.</p>
                     <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
                 </a>
 
                 <a href="garden.html?filter=games" class="domain-card">
                     <div class="domain-icon-wrap games">🎮</div>
                     <span class="domain-name">Games</span>
-                    <p class="domain-desc">Browser-based interactive environments, visual experiments, and retro games.
-                    </p>
+                    <p class="domain-desc">Browser-based interactive environments, visual experiments, and retro games.</p>
                     <span class="domain-link">Browse <i class="fas fa-arrow-right"></i></span>
                 </a>
 
@@ -178,7 +192,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <span class="logo-icon"><img src="assets/logo.png" alt="PoltorProgrammer Logo" class="logo-img"></span>
+                    <span class="logo-icon"><img src="assets/logo/logo-poltorprogrammer-squared.png" alt="PoltorProgrammer Logo" class="logo-img"></span>
                     <span>PoltorProgrammer</span>
                 </div>
                 <p class="footer-tagline">Digital Garden — vanilla HTML, CSS &amp; JS</p>

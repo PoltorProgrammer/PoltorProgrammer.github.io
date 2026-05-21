@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project — PoltorProgrammer</title>
+    <title>Post — PoltorProgrammer</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,7 @@
                 <span>PoltorProgrammer</span>
             </a>
             <ul class="nav-links">
-                <li><a href="blog.html"    class="nav-link">Blog</a></li>
+                <li><a href="blog.html"    class="nav-link active-page">Blog</a></li>
                 <li><a href="garden.html"  class="nav-link">Garden</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
@@ -38,26 +38,27 @@
         </div>
     </nav>
 
-    <!-- ── Project Header ────────────────────────────────── -->
-    <header class="project-header" id="project-cover">
+    <!-- ── Post Header ───────────────────────────────────── -->
+    <header class="project-header" id="post-cover">
         <div class="container">
-            <a href="garden.html" class="back-link">
-                <i class="fas fa-arrow-left"></i> Back to Garden
+            <a href="blog.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Blog
             </a>
             <div class="project-header-content">
-                <div class="project-badges" id="project-badges"></div>
-                <h1 class="project-title" id="project-title">Loading…</h1>
-                <p  class="project-subtitle" id="project-subtitle"></p>
-                <div class="project-tech"    id="project-tech"></div>
-                <div class="project-actions" id="project-actions"></div>
+                <div class="post-meta" id="post-meta"></div>
+                <h1 class="project-title" id="post-title">Loading…</h1>
+                <p  class="project-subtitle" id="post-subtitle"></p>
             </div>
         </div>
     </header>
 
-    <!-- ── Markdown body ─────────────────────────────────── -->
+    <!-- ── Post body ─────────────────────────────────────── -->
     <main class="project-main">
         <div class="container post-layout">
-            <article class="markdown-body" id="project-body"></article>
+            <div class="post-content">
+                <div class="post-related" id="post-related" style="display:none"></div>
+                <article class="markdown-body" id="post-body"></article>
+            </div>
             <aside class="toc-sidebar" id="toc-sidebar"></aside>
         </div>
     </main>
@@ -80,6 +81,6 @@
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
     <script src="js/toc.js"></script>
-    <script src="js/reader.js"></script>
+    <script src="js/post.js"></script>
 </body>
 </html>

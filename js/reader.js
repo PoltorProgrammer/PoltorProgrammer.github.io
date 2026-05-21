@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     loadProject();
 });
 
+const BLOG_INDEX = 'posts/blogs/index.json';
+const BLOGS_DIR  = 'posts/blogs/';
+
 /* ── Navigation ─────────────────────────────────────────── */
 function initNav() {
     const navbar    = document.getElementById('navbar');
@@ -21,14 +24,17 @@ function initNav() {
 
 /* ── Load & render project ──────────────────────────────── */
 async function loadProject() {
-    const id = window.location.hash.slice(1);
+    const id = window.location.hash.slice(1).split('#')[0];
 
     if (!id) { window.location.href = 'garden.html'; return; }
 
     try {
-        const res = await fetch(`projects/${id}.md`);
+        const [res, blogId] = await Promise.all([
+            fetch(`posts/projects/${id}.md`),
+            findBlogContext(id),
+        ]);
         if (!res.ok) throw new Error('not found');
-        renderProject(id, await res.text());
+        renderProject(id, await res.text(), blogId);
     } catch {
         document.getElementById('project-body').innerHTML = `
             <div class="error-state">
@@ -38,6 +44,24 @@ async function loadProject() {
                 <a href="garden.html" class="btn btn-primary">Return to Garden</a>
             </div>`;
     }
+}
+
+async function findBlogContext(projectId) {
+    try {
+        const res = await fetch(BLOG_INDEX);
+        if (!res.ok) return null;
+        const ids = await res.json();
+
+        for (const id of ids) {
+            const r = await fetch(`${BLOGS_DIR}${id}.md`);
+            if (!r.ok) continue;
+            const text = await r.text();
+            const { metadata } = parseFrontmatter(text);
+            const projects = Array.isArray(metadata.projects) ? metadata.projects : [];
+            if (projects.includes(projectId)) return id;
+        }
+    } catch { /* optional */ }
+    return null;
 }
 
 /* ── Frontmatter parser ─────────────────────────────────── */
@@ -69,7 +93,7 @@ function parseFrontmatter(text) {
 }
 
 /* ── Render ─────────────────────────────────────────────── */
-function renderProject(id, rawText) {
+function renderProject(id, rawText, blogId = null) {
     const { metadata, content } = parseFrontmatter(rawText);
 
     document.title = `${metadata.title || 'Project'} — PoltorProgrammer`;
@@ -90,7 +114,6 @@ function renderProject(id, rawText) {
         ai:        '#1a4a6a',
         medical:   '#2e4a85',
         language:  '#b59110',
-        lenguage:  '#b59110',
         designs:   '#b55b10',
         tools:     '#3d4f63',
         blogs:     '#6f959e',
@@ -129,7 +152,7 @@ function renderProject(id, rawText) {
             botanics:  'Botanics',
             ai:        'AI & Data',
             medical:   'Medical',
-            language:  'Lenguage',
+            language:  'Language',
             designs:   'Designs',
             tools:     'Tools',
             blogs:     'Blogs',
@@ -164,6 +187,9 @@ function renderProject(id, rawText) {
         if (metadata.demo_url) {
             html += `<a href="${metadata.demo_url}" target="_blank" class="btn-action btn-demo"><i class="fas fa-external-link-alt"></i> Live Demo</a>`;
         }
+        if (blogId) {
+            html += `<a href="post.html#${blogId}" class="btn-action btn-blog"><i class="fas fa-book-open"></i> In Context</a>`;
+        }
         actionsEl.innerHTML = html;
     }
 
@@ -188,6 +214,8 @@ function renderProject(id, rawText) {
         );
 
         bodyEl.innerHTML = html;
+
+        initToc('project-body', 'toc-sidebar', id);
 
         // Render mathematical formulas (LaTeX) using KaTeX auto-render
         if (typeof renderMathInElement !== 'undefined') {

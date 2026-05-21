@@ -2,9 +2,9 @@
 setlocal
 
 :: 1. SETTINGS
-set "APP_NAME=Portfolio"
+set "APP_NAME=.Portfolio"
 set "PORT=2603"
-set "ICON_RELATIVE_PATH="
+set "ICON_RELATIVE_PATH=assets\logo\logo-poltorprogrammer-squared.ico"
 set "SHORTCUT_NAME=%APP_NAME%.lnk"
 
 :: 2. DETECT MODE

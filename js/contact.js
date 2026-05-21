@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 4. Always append a vCard Download Card
         gridEl.appendChild(createCard({
-            href: "assets/tomas_gonzalez.vcf",
+            href: "assets/.vcf/tomas_gonzalez.vcf",
             iconClass: "fas fa-address-card",
             label: "Save Contact",
             value: "Download vCard (.vcf)",
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadVCard() {
         try {
-            const response = await fetch('assets/tomas_gonzalez.vcf');
+            const response = await fetch('assets/.vcf/tomas_gonzalez.vcf');
             if (!response.ok) throw new Error('Fetch failed');
             const text = await response.text();
             const vcard = parseVCard(text);

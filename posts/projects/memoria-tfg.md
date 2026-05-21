@@ -2,7 +2,7 @@
 title: "Memoria TFG"
 subtitle: "Divulgative thesis report, formal academic documentation, and development resources for the UAB botanical systems."
 visibility: "public"
-category: ["nature", "blogs"]
+category: ["nature"]
 tech_stack: ["HTML", "Markdown"]
 status: "Completed — May 2025"
 github_url: "https://github.com/PoltorProgrammer/Memoria_TFG_Maig_2025"

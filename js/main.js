@@ -1,13 +1,17 @@
-const PROJECT_INDEX = 'projects/index.json';
-const PROJECTS_DIR  = 'projects/';
+const PROJECT_INDEX = 'posts/projects/index.json';
+const PROJECTS_DIR  = 'posts/projects/';
+const BLOG_INDEX    = 'posts/blogs/index.json';
+const BLOGS_DIR     = 'posts/blogs/';
 
 let allProjects  = [];
+let projectToBlog = {};
 let activeFilter = 'all';
 let searchQuery  = '';
 
 document.addEventListener('DOMContentLoaded', async () => {
     initNav();
-    await loadProjects();
+    await Promise.all([loadProjects(), loadBlogMap()]);
+    renderGrid();
     initFilters();
     initSearch();
     applyUrlFilter();
@@ -36,9 +40,35 @@ function initNav() {
     });
 }
 
+/* ── Blog map (projectId → blogPostId) ──────────────────── */
+async function loadBlogMap() {
+    try {
+        const res = await fetch(BLOG_INDEX);
+        if (!res.ok) return;
+        const ids = await res.json();
+
+        const settled = await Promise.allSettled(ids.map(async id => {
+            const r = await fetch(`${BLOGS_DIR}${id}.md`);
+            if (!r.ok) return null;
+            const text = await r.text();
+            const { metadata } = parseFrontmatter(text);
+            return { id, projects: metadata.projects || [] };
+        }));
+
+        settled.forEach(r => {
+            if (r.status !== 'fulfilled' || !r.value) return;
+            const { id, projects } = r.value;
+            (Array.isArray(projects) ? projects : []).forEach(pid => {
+                if (!projectToBlog[pid]) projectToBlog[pid] = id;
+            });
+        });
+    } catch {
+        /* blog map is optional — silent fail */
+    }
+}
+
 /* ── Project loading ────────────────────────────────────── */
 async function loadProjects() {
-    const grid    = document.getElementById('project-grid');
     const loading = document.getElementById('grid-loading');
 
     try {
@@ -53,7 +83,6 @@ async function loadProjects() {
             .map(r => r.value);
 
         if (loading) loading.remove();
-        renderGrid();
 
     } catch (err) {
         console.error('Could not load projects:', err);
@@ -141,6 +170,11 @@ function buildCard(project) {
         return `<span class="badge badge-category">${lbl}</span>`;
     }).join('');
 
+    const blogId    = projectToBlog[id];
+    const blogBadge = blogId
+        ? `<span class="badge badge-blog" onclick="event.preventDefault();event.stopPropagation();location.href='post.html#${blogId}'">📖 In context</span>`
+        : '';
+
     const badges = `
         <div class="card-badges">
             <span class="badge ${visClass}">${visText}</span>
@@ -148,11 +182,11 @@ function buildCard(project) {
         </div>`;
 
     const coverHTML = cover_image
-        ? `<div class="card-cover" style="background-image:url('${cover_image}')">${badges}</div>`
+        ? `<div class="card-cover" style="background-image:url('${cover_image}')">${badges}${blogBadge}</div>`
         : `<div class="card-cover">
                <div class="card-cover-gradient ${primaryCat}"></div>
                <span class="card-cover-icon">${icon}</span>
-               ${badges}
+               ${badges}${blogBadge}
            </div>`;
 
     const techHTML = Array.isArray(tech_stack) && tech_stack.length
@@ -221,7 +255,7 @@ function applyFilters() {
                 const c = cat.trim().toLowerCase();
                 const f = activeFilter.trim().toLowerCase();
                 if (f === 'nature' && (c === 'nature' || c === 'natural')) return true;
-                if (f === 'language' && (c === 'language' || c === 'lenguage')) return true;
+                if (f === 'language' && c === 'language') return true;
                 return c === f;
             });
         }
@@ -245,10 +279,9 @@ function categoryLabel(cat) {
         botanics:  'Botanics',
         ai:        'AI & Data',
         medical:   'Medical',
-        language:  'Lenguage',
+        language:  'Language',
         designs:   'Designs',
         tools:     'Tools',
-        blogs:     'Blogs',
         games:     'Games'
     }[c] || cat;
 }
@@ -265,7 +298,6 @@ function categoryIcon(cat) {
         language:  '🌏',
         designs:   '🎨',
         tools:     '🔧',
-        blogs:     '✍️',
         games:     '🎮'
     }[c] || '📦';
 }

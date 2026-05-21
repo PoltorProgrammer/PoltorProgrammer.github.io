@@ -2,7 +2,7 @@
 title: "PoltorProgrammer Garden"
 subtitle: "Personal portfolio, resources index, blog posts, and interactive project digital garden."
 visibility: "public"
-category: ["tools", "blogs", "designs"]
+category: ["tools", "designs"]
 tech_stack: ["HTML", "CSS", "JavaScript"]
 status: "Active Development"
 github_url: "https://github.com/PoltorProgrammer/PoltorProgrammer.github.io"
