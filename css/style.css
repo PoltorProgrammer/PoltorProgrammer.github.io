@@ -173,7 +173,7 @@ img { max-width: 100%; height: auto; display: block; }
     background:
         radial-gradient(ellipse at 25% 15%, rgba(111, 149, 158, 0.2) 0%, transparent 45%),
         linear-gradient(180deg, rgba(7, 18, 25, 0.65) 0%, rgba(34, 52, 64, 0.65) 100%),
-        url('../assets/landscape/main_page-background-lowpoly_clean_aquascape.png') no-repeat center center;
+        url('../assets/landscape/main_page-background-lowpoly_clean_aquascape.webp') no-repeat center center;
     background-size: cover;
 }
 .particles-container {
