@@ -67,6 +67,6 @@ The analysis revealed patterns that shaped a late round of UI revisions — part
 
 ## The Result
 
-The botanical gallery of the UAB campus is live, documented, and extensible. The data editor is still the tool used to maintain and expand the catalogue. The thesis scored a **9.5 out of 10**.
+The botanical gallery of the UAB campus is live, documented, and extensible. The data editor is still the tool used to maintain and expand the catalogue.
 
 More importantly, the project left behind a set of repositories that are independently useful — a gallery that can be adapted for any botanical collection, an editor that generalizes to any structured catalogue, and a WordPress plugin pattern that can be reused for similar institutional integrations.
