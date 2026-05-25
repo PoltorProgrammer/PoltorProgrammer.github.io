@@ -2,7 +2,7 @@
 title: "Folium: End-to-End Design and Implementation of a Location-Scoped Citizen Science App for Botanical Cataloging"
 subtitle: "How a single developer built, deployed, and shipped a Play Store app for community botanical monitoring — with expert-weighted consensus, PostGIS spatial queries, and full GDPR compliance"
 date: "2026-05-25"
-tags: ["citizen-science", "mobile", "react-native", "biodiversity", "supabase", "typescript", "gdpr", "expo"]
+tags: ["citizen-science", "mobile", "react-native", "biodiversity", "supabase", "typescript", "GDPR", "expo"]
 projects: ["folium"]
 cover_color: "nature"
 ---
