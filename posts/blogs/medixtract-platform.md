@@ -2,7 +2,7 @@
 title: "MediXtract: Architecting a Clinical Data Extraction Platform"
 subtitle: "From scattered Python scripts to an end-to-end NLP pipeline for structured medical document processing"
 date: "2026-01-15"
-tags: ["ai", "nlp", "medical", "architecture", "platform", "python"]
+tags: ["AI", "NLP", "medical", "architecture", "platform", "python"]
 projects: ["medixtract", "architect-medixtract", "google-dlp-sensitive-data", "medixtract-platform-v0", "audio-diarizer", "audio-diarizer-app"]
 cover_color: "medical"
 ---

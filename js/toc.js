@@ -71,11 +71,11 @@ function initToc(bodyId, sidebarId, baseHash) {
         history.replaceState(null, '', `#${baseHash}#${active.id}`);
     }
 
+    // Capture original hash before update() overwrites it via replaceState
+    const hashParts = window.location.hash.slice(1).split('#');
+
     window.addEventListener('scroll', update, { passive: true });
     update();
-
-    // Scroll to heading if URL already contains one
-    const hashParts = window.location.hash.slice(1).split('#');
     if (hashParts[1]) {
         const target = document.getElementById(hashParts[1]);
         if (target) {
