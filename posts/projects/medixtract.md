@@ -6,7 +6,7 @@ category: ["medical", "ai", "tools"]
 tech_stack: ["Python", "FastAPI", "LLMs", "NLP", "PostgreSQL", "Docker"]
 status: "Active Development"
 github_url: ""
-demo_url: ""
+demo_url: "https://medixtract.github.io/MediXtract/"
 hidden: false
 ---
 
