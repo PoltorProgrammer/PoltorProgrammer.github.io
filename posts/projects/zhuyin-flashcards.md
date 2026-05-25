@@ -6,7 +6,7 @@ category: "language"
 tech_stack: ["HTML", "CSS", "Python"]
 status: "Released"
 github_url: "https://github.com/PoltorProgrammer/Zhuyin_flashcards_interactivas"
-demo_url: ""
+demo_url: "https://poltorprogrammer.github.io/Zhuyin_flashcards_interactivas"
 hidden: false
 ---
 

@@ -6,7 +6,7 @@ category: "language"
 tech_stack: ["HTML5", "CSS3", "JavaScript"]
 status: "Released"
 github_url: "https://github.com/PoltorProgrammer/Zhuyin-Keyboard-with-Pinyin-Lookup"
-demo_url: ""
+demo_url: "https://poltorprogrammer.github.io/Zhuyin-Keyboard-with-Pinyin-Lookup/zhuyin-pinyin-keyboard.html"
 hidden: false
 ---
 
