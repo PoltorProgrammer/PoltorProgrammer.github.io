@@ -119,8 +119,23 @@ function renderProject(id, rawText, blogId = null) {
         blogs:     '#6f959e',
         games:     '#7b2d7a',
     };
-    const accent = accentMap[primaryCat] || '#223440';
-    document.documentElement.style.setProperty('--entry-accent', accent);
+    const accentMapDark = {
+        nature:    '#52b77e',
+        natural:   '#52b77e',
+        botanical: '#52b77e',
+        botanics:  '#52b77e',
+        ai:        '#4a9fd4',
+        medical:   '#6a8fd4',
+        language:  '#e0c040',
+        designs:   '#e08840',
+        tools:     '#7da5b0',
+        blogs:     '#9fc5cc',
+        games:     '#c060be',
+    };
+    const accent     = accentMap[primaryCat]     || '#223440';
+    const accentDark = accentMapDark[primaryCat] || '#8fb8c3';
+    document.documentElement.style.setProperty('--entry-accent',      accent);
+    document.documentElement.style.setProperty('--entry-accent-dark', accentDark);
 
     // Cover header class
     const header = document.getElementById('project-cover');

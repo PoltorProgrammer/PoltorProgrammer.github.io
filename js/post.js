@@ -86,7 +86,18 @@ function renderPost(id, rawText) {
         games:    '#7b2d7a',
         default:  '#476573',
     };
-    document.documentElement.style.setProperty('--entry-accent', accentMap[coverColor] || accentMap.default);
+    const accentMapDark = {
+        nature:   '#52b77e',
+        ai:       '#4a9fd4',
+        medical:  '#6a8fd4',
+        language: '#e0c040',
+        designs:  '#e08840',
+        tools:    '#7da5b0',
+        games:    '#c060be',
+        default:  '#8fb8c3',
+    };
+    document.documentElement.style.setProperty('--entry-accent',      accentMap[coverColor]     || accentMap.default);
+    document.documentElement.style.setProperty('--entry-accent-dark', accentMapDark[coverColor] || accentMapDark.default);
 
     const header = document.getElementById('post-cover');
     if (header) {
