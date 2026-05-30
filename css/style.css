@@ -1033,6 +1033,94 @@ img { max-width: 100%; height: auto; display: block; }
     margin: 1.5rem auto;
     max-width: 100%;
 }
+.markdown-body video,
+.post-video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    margin: 1.5rem auto;
+    border: 1px solid var(--border-color);
+}
+.video-demo-container {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid rgba(71, 101, 115, 0.15);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-md);
+    color: #223440 !important; /* Force dark text color on white background */
+}
+.video-demo-container .video-column {
+    flex: 0 0 220px;
+    max-width: 220px;
+}
+.video-demo-container .video-column video {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    box-shadow: none !important;
+    display: block;
+    margin: 0 !important;
+    border: none !important;
+    outline: none !important;
+}
+.video-demo-container .desc-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+.video-demo-container .video-badge {
+    background: rgba(71, 101, 115, 0.08);
+    border: 1px solid rgba(71, 101, 115, 0.15);
+    color: var(--primary) !important;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-xl);
+}
+.video-demo-container .desc-column h3 {
+    margin: 0 !important;
+    color: #142027 !important;
+    font-size: 1.3rem !important;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+.video-demo-container .desc-column p {
+    margin: 0 !important;
+    color: #476573 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    text-align: justify;
+}
+@media (max-width: 768px) {
+    .video-demo-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+    .video-demo-container .video-column {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 200px;
+    }
+    .video-demo-container .desc-column {
+        align-items: center;
+    }
+    .video-demo-container .desc-column p {
+        text-align: center;
+    }
+}
 .markdown-body a {
     color: var(--primary);
     text-decoration: underline;

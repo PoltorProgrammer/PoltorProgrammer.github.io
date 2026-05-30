@@ -12,7 +12,16 @@ cover_color: "nature"
 <!-- Replace the URL below with your YouTube / Vimeo link once the video is uploaded -->
 <!-- Example: https://www.youtube.com/watch?v=YOUR_VIDEO_ID -->
 
-*Video coming soon.*
+<div class="video-demo-container">
+    <div class="video-column">
+        <video src="assets/posts/folium/folium-app-demo.mp4" controls autoplay muted loop playsinline></video>
+    </div>
+    <div class="desc-column">
+        <span class="video-badge">Screen Recording</span>
+        <h3>Application Walkthrough</h3>
+        <p>A screen recording of the Folium mobile application demonstrating the guided observation flow (including sub-meter GPS tagging and PlantNet AI suggestions), the interactive geospatial map, and the card-swipe validation interface.</p>
+    </div>
+</div>
 
 ---
 
