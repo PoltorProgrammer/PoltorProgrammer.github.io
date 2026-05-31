@@ -256,6 +256,9 @@ function setText(id, value) {
 /* ── PDF Modal Previews ────────────────────────────────── */
 let pdfDoc = null;
 const scale = 1.5;
+let pdfPageTexts = [];
+let searchMatches = [];
+let currentMatchIndex = -1;
 
 function loadPdfJs() {
     if (window.pdfjsLib) return Promise.resolve();
@@ -300,6 +303,15 @@ function initPdfModal() {
                             <span id="pdf-page-count-display">1</span>
                         </div>
                         <button onclick="nextPdfPage()" class="modal-nav-btn" aria-label="Next Page"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="pdf-modal-search">
+                        <div class="pdf-search-box">
+                            <i class="fas fa-search pdf-search-icon"></i>
+                            <input type="text" id="pdf-search-input" class="pdf-search-input" placeholder="Search text..." disabled>
+                            <span id="pdf-search-index" class="pdf-search-index" style="display: none;">0/0</span>
+                        </div>
+                        <button onclick="prevPdfSearch()" class="modal-nav-btn" id="pdf-search-prev" aria-label="Previous Match" disabled><i class="fas fa-chevron-up"></i></button>
+                        <button onclick="nextPdfSearch()" class="modal-nav-btn" id="pdf-search-next" aria-label="Next Match" disabled><i class="fas fa-chevron-down"></i></button>
                     </div>
                     <button onclick="closePdfModal()" class="pdf-modal-close" aria-label="Close modal">&times;</button>
                 </div>
@@ -358,6 +370,24 @@ function initPdfModal() {
             pageInput.blur();
         }
     });
+
+    // Add search input listeners
+    const searchInput = modalEl.querySelector('#pdf-search-input');
+    let searchDebounceTimeout = null;
+    
+    searchInput.addEventListener('input', () => {
+        clearTimeout(searchDebounceTimeout);
+        searchDebounceTimeout = setTimeout(() => {
+            runPdfSearch();
+        }, 250);
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            clearTimeout(searchDebounceTimeout);
+            runPdfSearch();
+        }
+    });
 }
 
 function jumpToPage(pageNum) {
@@ -393,6 +423,143 @@ window.nextPdfPage = function() {
     jumpToPage(page);
 };
 
+function extractPdfText() {
+    pdfPageTexts = [];
+    const promises = [];
+    for (let i = 1; i <= pdfDoc.numPages; i++) {
+        promises.push(
+            pdfDoc.getPage(i).then(page => {
+                return page.getTextContent().then(textContent => {
+                    const pageText = textContent.items.map(item => item.str).join(' ');
+                    pdfPageTexts[i - 1] = {
+                        pageNumber: i,
+                        text: pageText.toLowerCase()
+                    };
+                });
+            }).catch(err => {
+                console.error(`Error extracting text for page ${i}:`, err);
+                pdfPageTexts[i - 1] = {
+                    pageNumber: i,
+                    text: ''
+                };
+            })
+        );
+    }
+    
+    Promise.all(promises).then(() => {
+        const searchInput = document.getElementById('pdf-search-input');
+        if (searchInput) {
+            searchInput.disabled = false;
+            searchInput.placeholder = 'Search text...';
+        }
+    }).catch(err => {
+        console.error('Error during text extraction:', err);
+    });
+}
+
+function runPdfSearch() {
+    const searchInput = document.getElementById('pdf-search-input');
+    if (!searchInput) return;
+    const query = searchInput.value.trim().toLowerCase();
+    
+    const prevBtn = document.getElementById('pdf-search-prev');
+    const nextBtn = document.getElementById('pdf-search-next');
+    const indexDisplay = document.getElementById('pdf-search-index');
+    
+    if (!query) {
+        searchMatches = [];
+        currentMatchIndex = -1;
+        if (prevBtn) prevBtn.disabled = true;
+        if (nextBtn) nextBtn.disabled = true;
+        if (indexDisplay) {
+            indexDisplay.style.display = 'none';
+            indexDisplay.textContent = '0/0';
+        }
+        clearHighlights();
+        return;
+    }
+    
+    searchMatches = [];
+    pdfPageTexts.forEach(pageData => {
+        if (pageData.text.includes(query)) {
+            searchMatches.push(pageData.pageNumber);
+        }
+    });
+    
+    if (searchMatches.length > 0) {
+        currentMatchIndex = 0;
+        if (prevBtn) prevBtn.disabled = false;
+        if (nextBtn) nextBtn.disabled = false;
+        if (indexDisplay) {
+            indexDisplay.style.display = 'inline-block';
+            indexDisplay.style.color = ''; // reset color
+            indexDisplay.textContent = `1/${searchMatches.length}`;
+        }
+        jumpToSearchMatch();
+    } else {
+        currentMatchIndex = -1;
+        if (prevBtn) prevBtn.disabled = true;
+        if (nextBtn) nextBtn.disabled = true;
+        if (indexDisplay) {
+            indexDisplay.style.display = 'inline-block';
+            indexDisplay.style.color = '#d46448'; // red accent color
+            indexDisplay.textContent = '0/0';
+        }
+        clearHighlights();
+    }
+}
+
+window.prevPdfSearch = function() {
+    if (searchMatches.length === 0) return;
+    currentMatchIndex = (currentMatchIndex - 1 + searchMatches.length) % searchMatches.length;
+    updateSearchDisplay();
+    jumpToSearchMatch();
+};
+
+window.nextPdfSearch = function() {
+    if (searchMatches.length === 0) return;
+    currentMatchIndex = (currentMatchIndex + 1) % searchMatches.length;
+    updateSearchDisplay();
+    jumpToSearchMatch();
+};
+
+function updateSearchDisplay() {
+    const indexDisplay = document.getElementById('pdf-search-index');
+    if (indexDisplay && searchMatches.length > 0) {
+        indexDisplay.textContent = `${currentMatchIndex + 1}/${searchMatches.length}`;
+    }
+}
+
+function jumpToSearchMatch() {
+    if (currentMatchIndex < 0 || currentMatchIndex >= searchMatches.length) return;
+    const targetPageNum = searchMatches[currentMatchIndex];
+    
+    const pageInput = document.getElementById('pdf-current-page-input');
+    if (pageInput) pageInput.value = targetPageNum;
+    
+    jumpToPage(targetPageNum);
+    
+    clearHighlights();
+    
+    const targetCanvas = document.getElementById(`pdf-canvas-${targetPageNum}`);
+    if (targetCanvas && targetCanvas.parentElement) {
+        const wrapper = targetCanvas.parentElement;
+        wrapper.classList.add('search-highlighted');
+        
+        // Remove highlight after animation completes
+        setTimeout(() => {
+            wrapper.classList.remove('search-highlighted');
+        }, 2500);
+    }
+}
+
+function clearHighlights() {
+    const wrappers = document.querySelectorAll('.pdf-canvas-container .pdf-page-wrapper');
+    wrappers.forEach(wrapper => {
+        wrapper.classList.remove('search-highlighted');
+    });
+}
+
 window.openPdfModal = function(pdfUrl, docTitle) {
     const modal = document.getElementById('pdf-modal');
     const title = document.getElementById('pdf-modal-title');
@@ -409,12 +576,35 @@ window.openPdfModal = function(pdfUrl, docTitle) {
     pageCountEl.textContent = '1';
     pageInput.value = '1';
     
+    // Reset search UI & variables
+    const searchInput = document.getElementById('pdf-search-input');
+    const searchIndex = document.getElementById('pdf-search-index');
+    const prevSearchBtn = document.getElementById('pdf-search-prev');
+    const nextSearchBtn = document.getElementById('pdf-search-next');
+    if (searchInput) {
+        searchInput.value = '';
+        searchInput.disabled = true;
+        searchInput.placeholder = 'Extracting text...';
+    }
+    if (searchIndex) {
+        searchIndex.style.display = 'none';
+        searchIndex.textContent = '0/0';
+    }
+    if (prevSearchBtn) prevSearchBtn.disabled = true;
+    if (nextSearchBtn) nextSearchBtn.disabled = true;
+    searchMatches = [];
+    currentMatchIndex = -1;
+    pdfPageTexts = [];
+    
     loadPdfJs().then(() => {
         window.pdfjsLib.getDocument(pdfUrl).promise.then((pdfDoc_) => {
             pdfDoc = pdfDoc_;
             container.innerHTML = ''; // Clear loading text
             pageCountEl.textContent = pdfDoc.numPages;
             pageInput.max = pdfDoc.numPages;
+            
+            // Start background text extraction
+            extractPdfText();
             
             // Loop and render all pages
             for (let i = 1; i <= pdfDoc.numPages; i++) {
@@ -452,5 +642,8 @@ window.closePdfModal = function() {
         document.body.style.overflow = 'auto';
         if (container) container.innerHTML = ''; // Clear canvases on close to free memory
         pdfDoc = null;
+        pdfPageTexts = [];
+        searchMatches = [];
+        currentMatchIndex = -1;
     }
 };

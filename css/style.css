@@ -1366,6 +1366,67 @@ img { max-width: 100%; height: auto; display: block; }
     color: #476573 !important;
     font-weight: 600;
 }
+.pdf-modal-search {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(71, 101, 115, 0.08);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(71, 101, 115, 0.15);
+}
+.pdf-search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    position: relative;
+}
+.pdf-search-icon {
+    color: #476573 !important;
+    font-size: 0.85rem;
+}
+.pdf-search-input {
+    width: 120px;
+    background: transparent !important;
+    border: none !important;
+    color: #142027 !important;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    outline: none;
+    padding: 0.1rem 0;
+    transition: width var(--transition);
+}
+.pdf-search-input:focus {
+    width: 160px;
+}
+.pdf-search-input::placeholder {
+    color: #718096 !important;
+    opacity: 0.7;
+}
+.pdf-search-index {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #7c96a3 !important;
+    user-select: none;
+    padding: 0 0.2rem;
+}
+@keyframes page-highlight-flash {
+    0% {
+        box-shadow: 0 0 0 8px rgba(246, 173, 85, 0.9), 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+    30% {
+        box-shadow: 0 0 0 8px rgba(246, 173, 85, 0.9), 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+}
+.pdf-page-wrapper.search-highlighted canvas {
+    outline: 4px solid #f6ad55 !important;
+    outline-offset: 2px;
+    animation: page-highlight-flash 2.5s ease-out;
+}
 .pdf-modal-close {
     background: none;
     border: none;
@@ -1402,6 +1463,31 @@ img { max-width: 100%; height: auto; display: block; }
     }
     .pdf-modal-content {
         height: 95vh;
+    }
+    .pdf-modal-header {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+        position: relative;
+    }
+    #pdf-modal-title {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.25rem;
+    }
+    .pdf-modal-controls {
+        order: 2;
+    }
+    .pdf-modal-search {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+    .pdf-modal-close {
+        order: 1;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
     }
 }
 .markdown-body a {
