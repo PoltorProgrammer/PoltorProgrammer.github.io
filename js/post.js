@@ -214,7 +214,12 @@ function loadPdfJs() {
 
 function renderPageOnCanvas(num, innerContainer, targetCanvas) {
     pdfDoc.getPage(num).then((page) => {
-        const viewport = page.getViewport({ scale: scale });
+        const container = document.querySelector('.pdf-canvas-container');
+        const availableWidth = container ? Math.max(200, container.clientWidth - 48) : 800;
+        const naturalVp = page.getViewport({ scale: 1 });
+        const fitScale = Math.min(scale, availableWidth / naturalVp.width);
+        const viewport = page.getViewport({ scale: fitScale });
+
         const context = targetCanvas.getContext('2d');
         targetCanvas.height = viewport.height;
         targetCanvas.width = viewport.width;
@@ -245,7 +250,7 @@ function renderPageOnCanvas(num, innerContainer, targetCanvas) {
             innerContainer.appendChild(textLayerEl);
 
             const textLayerRenderTask = window.pdfjsLib.renderTextLayer({
-                textContentSource: textContent,
+                textContent: textContent,
                 container: textLayerEl,
                 viewport: viewport,
                 textDivs: []
