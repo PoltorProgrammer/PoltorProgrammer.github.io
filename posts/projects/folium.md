@@ -193,4 +193,48 @@ Folium was evaluated as an Industrial Project TFG — a typology emphasizing app
 > [!NOTE]
 > The source code repository is private. The Google Play Store listing and this portfolio post are the primary public-facing references for the project.
 
+### Project Deliverables
+
+Here you can view and download the official academic deliverables submitted for the evaluation:
+
+<div class="attachments-container">
+<!-- Card 1: Written Memory -->
+<div class="attachment-card">
+<div class="attachment-preview">
+<img src="assets/posts/folium/folium-documentation-memory-preview.png" alt="Project Memory Preview">
+<div class="attachment-overlay">
+<a href="javascript:openPdfModal('assets/posts/folium/folium-documentation-memory.pdf', 'Project Memory / Thesis')" class="overlay-btn btn-open" title="Open Preview"><i class="fas fa-eye"></i> Open</a>
+<a href="assets/posts/folium/folium-documentation-memory.pdf" download class="overlay-btn" title="Download"><i class="fas fa-download"></i> Download</a>
+</div>
+</div>
+<div class="attachment-header">
+<div class="attachment-icon"><i class="fas fa-file-pdf"></i></div>
+<div class="attachment-meta">
+<span class="attachment-name" title="folium-documentation-memory.pdf">folium-documentation-memory.pdf</span>
+<span class="attachment-size">2.1 MB</span>
+</div>
+<a href="assets/posts/folium/folium-documentation-memory.pdf" download class="attachment-download-btn" title="Download"><i class="fas fa-download"></i></a>
+</div>
+</div>
+
+<!-- Card 2: Academic Poster -->
+<div class="attachment-card">
+<div class="attachment-preview">
+<img src="assets/posts/folium/folium-documentation-poster-preview.jpg" alt="Academic Poster Preview">
+<div class="attachment-overlay">
+<a href="javascript:openPdfModal('assets/posts/folium/folium-documentation-poster.pdf', 'Academic Poster')" class="overlay-btn btn-open" title="Open Preview"><i class="fas fa-eye"></i> Open</a>
+<a href="assets/posts/folium/folium-documentation-poster.pdf" download class="overlay-btn" title="Download"><i class="fas fa-download"></i> Download</a>
+</div>
+</div>
+<div class="attachment-header">
+<div class="attachment-icon"><i class="fas fa-file-pdf"></i></div>
+<div class="attachment-meta">
+<span class="attachment-name" title="folium-documentation-poster.pdf">folium-documentation-poster.pdf</span>
+<span class="attachment-size">9.4 MB</span>
+</div>
+<a href="assets/posts/folium/folium-documentation-poster.pdf" download class="attachment-download-btn" title="Download"><i class="fas fa-download"></i></a>
+</div>
+</div>
+</div>
+
 **Status:** Submitted to Google Play Store — May 2026 | Pilot deployment at UAB Campus — June 2026

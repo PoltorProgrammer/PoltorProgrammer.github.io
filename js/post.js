@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
     loadPost();
+    initPdfModal();
 });
 
 /* ── Navigation ─────────────────────────────────────────── */
@@ -184,3 +185,205 @@ function setText(id, value) {
     const el = document.getElementById(id);
     if (el) el.textContent = value;
 }
+
+/* ── PDF Modal Previews ────────────────────────────────── */
+let pdfDoc = null;
+const scale = 1.5;
+
+function loadPdfJs() {
+    if (window.pdfjsLib) return Promise.resolve();
+    return new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js';
+        script.onload = () => {
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+            resolve();
+        };
+        document.head.appendChild(script);
+    });
+}
+
+function renderPageOnCanvas(num, targetCanvas) {
+    pdfDoc.getPage(num).then((page) => {
+        const viewport = page.getViewport({ scale: scale });
+        const context = targetCanvas.getContext('2d');
+        targetCanvas.height = viewport.height;
+        targetCanvas.width = viewport.width;
+
+        const renderContext = {
+            canvasContext: context,
+            viewport: viewport
+        };
+        page.render(renderContext);
+    });
+}
+
+function initPdfModal() {
+    if (document.getElementById('pdf-modal')) return;
+    const modalHtml = `
+        <div id="pdf-modal" class="pdf-modal" style="display: none;">
+            <div class="pdf-modal-content">
+                <div class="pdf-modal-header">
+                    <span id="pdf-modal-title">Document Preview</span>
+                    <div class="pdf-modal-controls">
+                        <button onclick="prevPdfPage()" class="modal-nav-btn" aria-label="Previous Page"><i class="fas fa-chevron-left"></i></button>
+                        <div class="pdf-page-indicator">
+                            <input type="number" id="pdf-current-page-input" class="pdf-page-input" value="1" min="1">
+                            <span class="pdf-page-separator">/</span>
+                            <span id="pdf-page-count-display">1</span>
+                        </div>
+                        <button onclick="nextPdfPage()" class="modal-nav-btn" aria-label="Next Page"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <button onclick="closePdfModal()" class="pdf-modal-close" aria-label="Close modal">&times;</button>
+                </div>
+                <div class="pdf-canvas-container">
+                    <!-- Canvases are appended here -->
+                </div>
+            </div>
+        </div>
+    `;
+    const div = document.createElement('div');
+    div.innerHTML = modalHtml.trim();
+    const modalEl = div.firstChild;
+    document.body.appendChild(modalEl);
+    
+    // Close modal when clicking outside content
+    modalEl.addEventListener('click', (e) => {
+        if (e.target === modalEl) {
+            closePdfModal();
+        }
+    });
+
+    // Add scroll event listener to track page
+    const container = modalEl.querySelector('.pdf-canvas-container');
+    container.addEventListener('scroll', () => {
+        if (pdfDoc === null) return;
+        const canvases = container.querySelectorAll('canvas');
+        let activePage = 1;
+        let minDiff = Infinity;
+        const containerTop = container.getBoundingClientRect().top;
+        
+        canvases.forEach((canvasEl) => {
+            const rect = canvasEl.getBoundingClientRect();
+            const diff = Math.abs(rect.top - containerTop);
+            if (diff < minDiff) {
+                minDiff = diff;
+                activePage = parseInt(canvasEl.id.replace('pdf-canvas-', ''));
+            }
+        });
+        
+        const pageInput = document.getElementById('pdf-current-page-input');
+        if (pageInput && document.activeElement !== pageInput) {
+            pageInput.value = activePage;
+        }
+    });
+
+    // Add input keydown event listener to type page
+    const pageInput = modalEl.querySelector('#pdf-current-page-input');
+    pageInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            if (pdfDoc === null) return;
+            let targetPage = parseInt(pageInput.value);
+            if (isNaN(targetPage) || targetPage < 1) targetPage = 1;
+            if (targetPage > pdfDoc.numPages) targetPage = pdfDoc.numPages;
+            pageInput.value = targetPage;
+            jumpToPage(targetPage);
+            pageInput.blur();
+        }
+    });
+}
+
+function jumpToPage(pageNum) {
+    const container = document.querySelector('.pdf-canvas-container');
+    const targetCanvas = document.getElementById(`pdf-canvas-${pageNum}`);
+    if (container && targetCanvas) {
+        const wrapper = targetCanvas.parentElement;
+        container.scrollTo({
+            top: wrapper.offsetTop - container.offsetTop,
+            behavior: 'smooth'
+        });
+    }
+}
+
+window.prevPdfPage = function() {
+    const pageInput = document.getElementById('pdf-current-page-input');
+    if (!pageInput) return;
+    let page = parseInt(pageInput.value);
+    if (page <= 1) return;
+    page--;
+    pageInput.value = page;
+    jumpToPage(page);
+};
+
+window.nextPdfPage = function() {
+    if (pdfDoc === null) return;
+    const pageInput = document.getElementById('pdf-current-page-input');
+    if (!pageInput) return;
+    let page = parseInt(pageInput.value);
+    if (page >= pdfDoc.numPages) return;
+    page++;
+    pageInput.value = page;
+    jumpToPage(page);
+};
+
+window.openPdfModal = function(pdfUrl, docTitle) {
+    const modal = document.getElementById('pdf-modal');
+    const title = document.getElementById('pdf-modal-title');
+    const pageCountEl = document.getElementById('pdf-page-count-display');
+    const pageInput = document.getElementById('pdf-current-page-input');
+    const container = document.querySelector('.pdf-canvas-container');
+    if (!modal || !title || !pageCountEl || !container || !pageInput) return;
+    
+    title.textContent = docTitle;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    
+    container.innerHTML = '<div class="pdf-loading" style="color: #ffffff; font-weight: 600; padding: 2rem; text-align: center; width: 100%;">Loading document...</div>';
+    pageCountEl.textContent = '1';
+    pageInput.value = '1';
+    
+    loadPdfJs().then(() => {
+        window.pdfjsLib.getDocument(pdfUrl).promise.then((pdfDoc_) => {
+            pdfDoc = pdfDoc_;
+            container.innerHTML = ''; // Clear loading text
+            pageCountEl.textContent = pdfDoc.numPages;
+            pageInput.max = pdfDoc.numPages;
+            
+            // Loop and render all pages
+            for (let i = 1; i <= pdfDoc.numPages; i++) {
+                const canvasWrapper = document.createElement('div');
+                canvasWrapper.className = 'pdf-page-wrapper';
+                canvasWrapper.style.margin = '0.5rem 0 1.5rem 0';
+                canvasWrapper.style.width = '100%';
+                canvasWrapper.style.display = 'flex';
+                canvasWrapper.style.justifyContent = 'center';
+                
+                const canvasEl = document.createElement('canvas');
+                canvasEl.id = `pdf-canvas-${i}`;
+                canvasEl.style.maxWidth = '100%';
+                canvasEl.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
+                canvasEl.style.background = '#ffffff';
+                
+                canvasWrapper.appendChild(canvasEl);
+                container.appendChild(canvasWrapper);
+                
+                renderPageOnCanvas(i, canvasEl);
+            }
+        }).catch(err => {
+            container.innerHTML = '<div class="pdf-error" style="color: #ff6b6b; font-weight: 600; padding: 2rem; text-align: center; width: 100%;">Error loading document</div>';
+            pageCountEl.textContent = 'Error';
+            console.error('Error loading PDF: ', err);
+        });
+    });
+};
+
+window.closePdfModal = function() {
+    const modal = document.getElementById('pdf-modal');
+    const container = document.querySelector('.pdf-canvas-container');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        if (container) container.innerHTML = ''; // Clear canvases on close to free memory
+        pdfDoc = null;
+    }
+};
