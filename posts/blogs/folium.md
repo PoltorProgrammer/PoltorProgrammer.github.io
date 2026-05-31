@@ -103,6 +103,48 @@ Whether the gamification is strong enough to sustain engagement beyond the initi
 
 The source code is private, but the architecture, the compliance approach, and the design decisions are documented here and in the project post. If you are building something in the same space — citizen science, community monitoring, institutional biodiversity tools — I am happy to talk through the specifics.
 
+## Project Documentation
+
+Here you can view and download the official academic deliverables submitted for the Final Degree Project (TFG) at UAB.
+
+<div class="docs-grid">
+<!-- Card 1: Written Memory -->
+<div class="doc-card">
+<div class="doc-icon"><i class="fas fa-file-pdf"></i></div>
+<div class="doc-info">
+<h4>Project Memory / Thesis</h4>
+<p>The complete academic thesis detailing database schemas, edge function logistics, GDPR Article 17 compliance architecture, and pilot results.</p>
+<div class="doc-actions">
+<a href="assets/posts/folium/folium-documentation-memory.pdf" target="_blank" class="btn btn-doc"><i class="fas fa-external-link-alt"></i> View PDF</a>
+<a href="assets/posts/folium/folium-documentation-memory.pdf" download class="btn btn-doc btn-download"><i class="fas fa-download"></i> Download</a>
+</div>
+</div>
+</div>
+
+<!-- Card 2: Academic Poster -->
+<div class="doc-card">
+<div class="doc-icon"><i class="fas fa-file-pdf"></i></div>
+<div class="doc-info">
+<h4>Academic Poster</h4>
+<p>The visual summary presented during the oral defense, illustrating the validation consensus thresholds, Deno Edge Function triggers, and Supabase spatial queries.</p>
+<div class="doc-actions">
+<a href="assets/posts/folium/folium-documentation-poster.pdf" target="_blank" class="btn btn-doc"><i class="fas fa-external-link-alt"></i> View PDF</a>
+<a href="assets/posts/folium/folium-documentation-poster.pdf" download class="btn btn-doc btn-download"><i class="fas fa-download"></i> Download</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pdf-viewer-container">
+<h4>Project Memory Document Viewer</h4>
+<iframe src="assets/posts/folium/folium-documentation-memory.pdf" class="doc-iframe"></iframe>
+</div>
+
+<div class="pdf-viewer-container">
+<h4>Academic Presentation Poster Viewer</h4>
+<iframe src="assets/posts/folium/folium-documentation-poster.pdf" class="doc-iframe"></iframe>
+</div>
+
 ---
 
 ## Data Erasure Requests
