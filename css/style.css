@@ -1427,6 +1427,14 @@ img { max-width: 100%; height: auto; display: block; }
     outline-offset: 2px;
     animation: page-highlight-flash 2.5s ease-out;
 }
+.pdf-search-highlight {
+    background-color: rgba(255, 235, 59, 0.45) !important;
+    color: transparent !important;
+    border-radius: 2px;
+    padding: 0 1px;
+    display: inline-block; /* wait, spans are inline, inline-block is fine or inline. Let's keep it inline */
+    display: inline;
+}
 .pdf-modal-close {
     background: none;
     border: none;

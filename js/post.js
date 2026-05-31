@@ -196,6 +196,12 @@ let currentMatchIndex = -1;
 function loadPdfJs() {
     if (window.pdfjsLib) return Promise.resolve();
     return new Promise((resolve) => {
+        // Load PDF.js viewer CSS for text layer support
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf_viewer.min.css';
+        document.head.appendChild(link);
+
         const script = document.createElement('script');
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js';
         script.onload = () => {
@@ -206,18 +212,54 @@ function loadPdfJs() {
     });
 }
 
-function renderPageOnCanvas(num, targetCanvas) {
+function renderPageOnCanvas(num, innerContainer, targetCanvas) {
     pdfDoc.getPage(num).then((page) => {
         const viewport = page.getViewport({ scale: scale });
         const context = targetCanvas.getContext('2d');
         targetCanvas.height = viewport.height;
         targetCanvas.width = viewport.width;
 
+        innerContainer.style.width = `${viewport.width}px`;
+        innerContainer.style.height = `${viewport.height}px`;
+
         const renderContext = {
             canvasContext: context,
             viewport: viewport
         };
-        page.render(renderContext);
+        
+        const renderTask = page.render(renderContext);
+        
+        renderTask.promise.then(() => {
+            return page.getTextContent();
+        }).then((textContent) => {
+            const textLayerEl = document.createElement('div');
+            textLayerEl.className = 'textLayer';
+            textLayerEl.id = `pdf-text-layer-${num}`;
+            textLayerEl.style.position = 'absolute';
+            textLayerEl.style.top = '0';
+            textLayerEl.style.left = '0';
+            textLayerEl.style.width = '100%';
+            textLayerEl.style.height = '100%';
+            textLayerEl.style.setProperty('--scale-factor', scale);
+            
+            innerContainer.appendChild(textLayerEl);
+
+            const textLayerRenderTask = window.pdfjsLib.renderTextLayer({
+                textContentSource: textContent,
+                container: textLayerEl,
+                viewport: viewport,
+                textDivs: []
+            });
+            
+            return textLayerRenderTask.promise.then(() => {
+                const searchInput = document.getElementById('pdf-search-input');
+                if (searchInput && searchInput.value.trim()) {
+                    highlightQueryInLayer(textLayerEl, searchInput.value.trim());
+                }
+            });
+        }).catch(err => {
+            console.error('Error rendering text layer:', err);
+        });
     });
 }
 
@@ -463,6 +505,47 @@ function updateSearchDisplay() {
     }
 }
 
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function highlightQueryInLayer(layerEl, query) {
+    if (!query) return;
+    const queryRegex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+    const spans = layerEl.querySelectorAll('span');
+    spans.forEach(span => {
+        if (!span.hasAttribute('data-original-text')) {
+            span.setAttribute('data-original-text', span.textContent);
+        }
+        const originalText = span.getAttribute('data-original-text');
+        if (originalText.toLowerCase().includes(query.toLowerCase())) {
+            const highlightedHtml = originalText.replace(queryRegex, '<mark class="pdf-search-highlight">$1</mark>');
+            span.innerHTML = highlightedHtml;
+        } else {
+            span.textContent = originalText;
+        }
+    });
+}
+
+function highlightTextInLayers(query) {
+    const textLayers = document.querySelectorAll('.pdf-canvas-container .textLayer');
+    textLayers.forEach(layer => {
+        highlightQueryInLayer(layer, query);
+    });
+}
+
+function clearTextHighlights() {
+    const textLayers = document.querySelectorAll('.pdf-canvas-container .textLayer');
+    textLayers.forEach(layer => {
+        const spans = layer.querySelectorAll('span');
+        spans.forEach(span => {
+            if (span.hasAttribute('data-original-text')) {
+                span.textContent = span.getAttribute('data-original-text');
+            }
+        });
+    });
+}
+
 function jumpToSearchMatch() {
     if (currentMatchIndex < 0 || currentMatchIndex >= searchMatches.length) return;
     const targetPageNum = searchMatches[currentMatchIndex];
@@ -475,14 +558,19 @@ function jumpToSearchMatch() {
     clearHighlights();
     
     const targetCanvas = document.getElementById(`pdf-canvas-${targetPageNum}`);
-    if (targetCanvas && targetCanvas.parentElement) {
-        const wrapper = targetCanvas.parentElement;
+    if (targetCanvas && targetCanvas.parentElement && targetCanvas.parentElement.parentElement) {
+        const wrapper = targetCanvas.parentElement.parentElement;
         wrapper.classList.add('search-highlighted');
         
         // Remove highlight after animation completes
         setTimeout(() => {
             wrapper.classList.remove('search-highlighted');
         }, 2500);
+    }
+
+    const searchInput = document.getElementById('pdf-search-input');
+    if (searchInput && searchInput.value.trim()) {
+        highlightTextInLayers(searchInput.value.trim());
     }
 }
 
@@ -491,6 +579,7 @@ function clearHighlights() {
     wrappers.forEach(wrapper => {
         wrapper.classList.remove('search-highlighted');
     });
+    clearTextHighlights();
 }
 
 window.openPdfModal = function(pdfUrl, docTitle) {
@@ -548,16 +637,23 @@ window.openPdfModal = function(pdfUrl, docTitle) {
                 canvasWrapper.style.display = 'flex';
                 canvasWrapper.style.justifyContent = 'center';
                 
+                const innerContainer = document.createElement('div');
+                innerContainer.className = 'pdf-page-inner';
+                innerContainer.style.position = 'relative';
+                innerContainer.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
+                innerContainer.style.background = '#ffffff';
+                innerContainer.style.display = 'inline-block';
+                
                 const canvasEl = document.createElement('canvas');
                 canvasEl.id = `pdf-canvas-${i}`;
+                canvasEl.style.display = 'block';
                 canvasEl.style.maxWidth = '100%';
-                canvasEl.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
-                canvasEl.style.background = '#ffffff';
                 
-                canvasWrapper.appendChild(canvasEl);
+                innerContainer.appendChild(canvasEl);
+                canvasWrapper.appendChild(innerContainer);
                 container.appendChild(canvasWrapper);
                 
-                renderPageOnCanvas(i, canvasEl);
+                renderPageOnCanvas(i, innerContainer, canvasEl);
             }
         }).catch(err => {
             container.innerHTML = '<div class="pdf-error" style="color: #ff6b6b; font-weight: 600; padding: 2rem; text-align: center; width: 100%;">Error loading document</div>';
