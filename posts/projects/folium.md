@@ -201,38 +201,38 @@ Here you can view and download the official academic deliverables submitted for 
 <!-- Card 1: Written Memory -->
 <div class="attachment-card">
 <div class="attachment-preview">
-<img src="assets/posts/folium/folium-documentation-memory-preview.png" alt="Project Memory Preview">
+<img src="assets/posts/folium/folium-project_documentation-memory-preview.png" alt="Project Memory Preview">
 <div class="attachment-overlay">
-<a href="javascript:openPdfModal('assets/posts/folium/folium-documentation-memory.pdf', 'Project Memory / Thesis')" class="overlay-btn btn-open" title="Open Preview"><i class="fas fa-eye"></i> Open</a>
-<a href="assets/posts/folium/folium-documentation-memory.pdf" download class="overlay-btn" title="Download"><i class="fas fa-download"></i> Download</a>
+<a href="javascript:openPdfModal('assets/posts/folium/folium-project_documentation-memory.pdf', 'Project Memory / Thesis')" class="overlay-btn btn-open" title="Open Preview"><i class="fas fa-eye"></i> Open</a>
+<a href="assets/posts/folium/folium-project_documentation-memory.pdf" download class="overlay-btn" title="Download"><i class="fas fa-download"></i> Download</a>
 </div>
 </div>
 <div class="attachment-header">
 <div class="attachment-icon"><i class="fas fa-file-pdf"></i></div>
 <div class="attachment-meta">
-<span class="attachment-name" title="folium-documentation-memory.pdf">folium-documentation-memory.pdf</span>
+<span class="attachment-name" title="folium-project_documentation-memory.pdf">folium-project_documentation-memory.pdf</span>
 <span class="attachment-size">2.1 MB</span>
 </div>
-<a href="assets/posts/folium/folium-documentation-memory.pdf" download class="attachment-download-btn" title="Download"><i class="fas fa-download"></i></a>
+<a href="assets/posts/folium/folium-project_documentation-memory.pdf" download class="attachment-download-btn" title="Download"><i class="fas fa-download"></i></a>
 </div>
 </div>
 
 <!-- Card 2: Academic Poster -->
 <div class="attachment-card">
 <div class="attachment-preview">
-<img src="assets/posts/folium/folium-documentation-poster-preview.jpg" alt="Academic Poster Preview">
+<img src="assets/posts/folium/folium-project_documentation-poster-preview.jpg" alt="Academic Poster Preview">
 <div class="attachment-overlay">
-<a href="javascript:openPdfModal('assets/posts/folium/folium-documentation-poster.pdf', 'Academic Poster')" class="overlay-btn btn-open" title="Open Preview"><i class="fas fa-eye"></i> Open</a>
-<a href="assets/posts/folium/folium-documentation-poster.pdf" download class="overlay-btn" title="Download"><i class="fas fa-download"></i> Download</a>
+<a href="javascript:openPdfModal('assets/posts/folium/folium-project_documentation-poster.pdf', 'Academic Poster')" class="overlay-btn btn-open" title="Open Preview"><i class="fas fa-eye"></i> Open</a>
+<a href="assets/posts/folium/folium-project_documentation-poster.pdf" download class="overlay-btn" title="Download"><i class="fas fa-download"></i> Download</a>
 </div>
 </div>
 <div class="attachment-header">
 <div class="attachment-icon"><i class="fas fa-file-pdf"></i></div>
 <div class="attachment-meta">
-<span class="attachment-name" title="folium-documentation-poster.pdf">folium-documentation-poster.pdf</span>
+<span class="attachment-name" title="folium-project_documentation-poster.pdf">folium-project_documentation-poster.pdf</span>
 <span class="attachment-size">9.4 MB</span>
 </div>
-<a href="assets/posts/folium/folium-documentation-poster.pdf" download class="attachment-download-btn" title="Download"><i class="fas fa-download"></i></a>
+<a href="assets/posts/folium/folium-project_documentation-poster.pdf" download class="attachment-download-btn" title="Download"><i class="fas fa-download"></i></a>
 </div>
 </div>
 </div>
