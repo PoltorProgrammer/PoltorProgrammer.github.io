@@ -255,7 +255,7 @@ function setText(id, value) {
 
 /* ── PDF Modal Previews ────────────────────────────────── */
 let pdfDoc = null;
-const scale = 1.5;
+let scale = 1.5;
 let pdfPageTexts = [];
 let searchMatches = [];
 let currentMatchIndex = -1;
@@ -693,36 +693,48 @@ window.openPdfModal = function(pdfUrl, docTitle) {
             pageCountEl.textContent = pdfDoc.numPages;
             pageInput.max = pdfDoc.numPages;
             
-            // Start background text extraction
-            extractPdfText();
-            
-            // Loop and render all pages
-            for (let i = 1; i <= pdfDoc.numPages; i++) {
-                const canvasWrapper = document.createElement('div');
-                canvasWrapper.className = 'pdf-page-wrapper';
-                canvasWrapper.style.margin = '0.5rem 0 1.5rem 0';
-                canvasWrapper.style.width = '100%';
-                canvasWrapper.style.display = 'flex';
-                canvasWrapper.style.justifyContent = 'center';
+            // Calculate dynamic scale based on container width
+            pdfDoc.getPage(1).then((firstPage) => {
+                const unscaledViewport = firstPage.getViewport({ scale: 1.0 });
+                const padding = 48; // padding of container (1.5rem on left + right)
+                const availableWidth = container.clientWidth - padding;
                 
-                const innerContainer = document.createElement('div');
-                innerContainer.className = 'pdf-page-inner';
-                innerContainer.style.position = 'relative';
-                innerContainer.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
-                innerContainer.style.background = '#ffffff';
-                innerContainer.style.display = 'inline-block';
+                let dynamicScale = availableWidth / unscaledViewport.width;
+                if (dynamicScale > 1.3) dynamicScale = 1.3; // Limit scale to prevent pixelation/memory issues
+                if (dynamicScale < 0.6) dynamicScale = 0.6;
+                scale = dynamicScale;
                 
-                const canvasEl = document.createElement('canvas');
-                canvasEl.id = `pdf-canvas-${i}`;
-                canvasEl.style.display = 'block';
-                canvasEl.style.maxWidth = '100%';
+                // Start background text extraction
+                extractPdfText();
                 
-                innerContainer.appendChild(canvasEl);
-                canvasWrapper.appendChild(innerContainer);
-                container.appendChild(canvasWrapper);
-                
-                renderPageOnCanvas(i, innerContainer, canvasEl);
-            }
+                // Loop and render all pages
+                for (let i = 1; i <= pdfDoc.numPages; i++) {
+                    const canvasWrapper = document.createElement('div');
+                    canvasWrapper.className = 'pdf-page-wrapper';
+                    canvasWrapper.style.margin = '0.5rem 0 1.5rem 0';
+                    canvasWrapper.style.width = '100%';
+                    canvasWrapper.style.display = 'flex';
+                    canvasWrapper.style.justifyContent = 'center';
+                    
+                    const innerContainer = document.createElement('div');
+                    innerContainer.className = 'pdf-page-inner';
+                    innerContainer.style.position = 'relative';
+                    innerContainer.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
+                    innerContainer.style.background = '#ffffff';
+                    innerContainer.style.display = 'inline-block';
+                    
+                    const canvasEl = document.createElement('canvas');
+                    canvasEl.id = `pdf-canvas-${i}`;
+                    canvasEl.style.display = 'block';
+                    canvasEl.style.maxWidth = '100%';
+                    
+                    innerContainer.appendChild(canvasEl);
+                    canvasWrapper.appendChild(innerContainer);
+                    container.appendChild(canvasWrapper);
+                    
+                    renderPageOnCanvas(i, innerContainer, canvasEl);
+                }
+            });
         }).catch(err => {
             container.innerHTML = '<div class="pdf-error" style="color: #ff6b6b; font-weight: 600; padding: 2rem; text-align: center; width: 100%;">Error loading document</div>';
             pageCountEl.textContent = 'Error';
