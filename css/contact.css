@@ -1,0 +1,105 @@
+/* =============================================
+   CONTACT SECTION
+   ============================================= */
+.contact-section {
+    padding: 6rem 0;
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(71, 101, 115, 0.07) 100%);
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1.1rem;
+    max-width: 920px;
+    margin: 0 auto;
+}
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.4rem 1.6rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-hover);
+}
+.contact-icon {
+    width: 50px; height: 50px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+.contact-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+.contact-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-light);
+}
+.contact-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.contact-arrow {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: transform var(--transition), color var(--transition);
+}
+.contact-card:hover .contact-arrow {
+    transform: translateX(4px);
+    color: var(--primary);
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.footer {
+    background: linear-gradient(180deg, var(--primary-dark) 0%, #0a1820 100%);
+    padding: 2.75rem 0;
+    text-align: center;
+}
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+}
+.footer-tagline {
+    font-size: 0.82rem;
+    color: rgba(190, 221, 226, 0.6);
+}
+.footer-copy {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.25);
+    margin-top: 0.25rem;
+}

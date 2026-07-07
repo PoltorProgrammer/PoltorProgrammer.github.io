@@ -1,0 +1,197 @@
+/* =============================================
+   SECTION COMMON
+   ============================================= */
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.section-title {
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 0.65rem;
+}
+.section-subtitle {
+    font-size: 1rem;
+    color: var(--text-mid);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.65;
+}
+
+/* =============================================
+   PAGE HEADER  (garden.html / contact.html)
+   ============================================= */
+.page-header {
+    padding-top: calc(var(--nav-height) + 3.5rem);
+    padding-bottom: 3.5rem;
+    background:
+        radial-gradient(ellipse at 25% 15%, rgba(111, 149, 158, 0.22) 0%, transparent 50%),
+        linear-gradient(180deg, #071219 0%, #0d1e2c 40%, #223440 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.page-header-title {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 0.55rem;
+    filter: drop-shadow(0 0 30px rgba(190, 221, 226, 0.2));
+    animation: fadeUp 0.7s ease both 0.1s;
+}
+.page-header-name {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+    animation: fadeUp 0.7s ease both 0.18s;
+}
+.page-header-role {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1rem;
+    animation: fadeUp 0.7s ease both 0.22s;
+}
+.page-header-sub {
+    font-size: 1rem;
+    color: rgba(190, 221, 226, 0.72);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.65;
+    animation: fadeUp 0.7s ease both 0.25s;
+}
+.page-header-curve {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    pointer-events: none;
+}
+.page-header-curve svg { display: block; width: 100%; height: 40px; }
+
+/* =============================================
+   ABOUT SECTION  (index.html)
+   ============================================= */
+.about-section {
+    position: relative;
+    padding: 5.5rem 0 6.5rem;
+    background: var(--bg);
+}
+.about-inner {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+}
+.about-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(71, 101, 115, 0.08);
+    border: 1px solid rgba(71, 101, 115, 0.14);
+    padding: 0.3rem 0.9rem;
+    border-radius: var(--radius-xl);
+    margin-bottom: 1.25rem;
+}
+.about-text {
+    font-size: 1.12rem;
+    color: var(--text-mid);
+    line-height: 1.82;
+}
+.about-text strong { color: var(--text-dark); font-weight: 700; }
+
+/* =============================================
+   DOMAINS SECTION  (index.html)
+   ============================================= */
+.domains-section {
+    position: relative;
+    padding: 5rem 0 8.5rem;
+    background: var(--bg);
+}
+.domains-intro {
+    max-width: 640px;
+    margin: 0 auto 2.75rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+}
+.domains-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+    gap: 1.1rem;
+}
+.domain-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 1.4rem 1.3rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.domain-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md), var(--shadow-glow);
+    border-color: var(--border-hover);
+}
+.domain-icon-wrap {
+    width: 44px; height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+.domain-icon-wrap.nature,
+.domain-icon-wrap.natural,
+.domain-icon-wrap.botanics,
+.domain-icon-wrap.botanical { background: linear-gradient(135deg, #122b1d, #2d6a4f); }
+.domain-icon-wrap.ai        { background: linear-gradient(135deg, #071219, #1a3649); }
+.domain-icon-wrap.medical   { background: linear-gradient(135deg, #111d38, #253d6e); }
+.domain-icon-wrap.language  { background: linear-gradient(135deg, #3d3005, #856910); }
+.domain-icon-wrap.designs   { background: linear-gradient(135deg, #3d1b05, #853e10); }
+.domain-icon-wrap.blogs     { background: linear-gradient(135deg, #092c30, #1e7d8a); }
+.domain-icon-wrap.games     { background: linear-gradient(135deg, #2e0e30, #622563); }
+.domain-icon-wrap.tools     { background: linear-gradient(135deg, #18222f, #3b4d61); }
+.domain-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    letter-spacing: -0.15px;
+}
+.domain-desc {
+    font-size: 0.79rem;
+    color: var(--text-light);
+    line-height: 1.55;
+    flex: 1;
+}
+.domain-link {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: gap var(--transition), color var(--transition);
+    margin-top: 0.1rem;
+}
+.domain-card:hover .domain-link { gap: 0.55rem; color: var(--hover-link-color); }
+
+@media (max-width: 600px) {
+    .domains-grid { grid-template-columns: repeat(2, 1fr); }
+    .page-header-title { letter-spacing: -0.8px; }
+}
+@media (max-width: 380px) {
+    .domains-grid { grid-template-columns: 1fr; }
+}
