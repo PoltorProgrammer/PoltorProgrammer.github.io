@@ -1,6 +1,6 @@
 ---
 title: "RenderDown"
-subtitle: "A lightweight browser-based Markdown preview tool with a custom parser — no installation, no build step, no dependencies."
+subtitle: "A single static web page that turns Markdown into a searchable, self-contained HTML notes viewer or a clean, print-styled PDF."
 visibility: "public"
 category: "tools"
 tech_stack: ["HTML", "CSS", "JavaScript"]
@@ -10,44 +10,42 @@ demo_url: "https://poltorprogrammer.github.io/RenderDown/"
 hidden: false
 ---
 
-# RenderDown — Markdown Preview Tool
+# RenderDown — MD Notes Studio
 
-RenderDown is a browser-based tool for previewing how Markdown files render as HTML. It ships with a custom-built parser rather than relying on external libraries, keeping the entire project self-contained and dependency-free.
+RenderDown is a lightweight, serverless web tool designed to convert Markdown documents into rich, interactive outputs directly in the browser. It serves two primary workflows: exporting a searchable, dark-themed HTML notes viewer and generating clean, print-ready PDFs.
 
-## Why It Exists
+## What It Produces
 
-Testing Markdown rendering before integrating files into a larger system usually means spinning up a dev environment or depending on a specific library's interpretation of the spec. RenderDown removes that friction — open the HTML file locally, drop in a `.md` file, and see exactly how it renders.
+- **A Searchable Notes Viewer**: A self-contained, offline-ready HTML file with a sidebar table of contents, full-text search, scroll-spy navigation, breadcrumbs, and LaTeX math support via MathJax.
+- **A Print-Styled PDF**: A clean, professionally styled document generated natively using the browser's "Save as PDF" print stream.
 
-## What It Supports
+No installation, no external build steps, and no backend server required. Simply paste your Markdown or drop in a `.md` file, view the live preview, and download either format.
 
-- Headers (H1–H6)
-- Text formatting: **bold**, *italic*, ~~strikethrough~~
-- Lists: ordered, unordered, nested, and task lists
-- Blockquotes
-- Fenced and inline code blocks
-- Links and images
-- Horizontal rules
+## Features & Tech Stack
 
-> [!TIP]
-> The parser includes smart detection to avoid false positives — for example, initials like "A. Smith" are not misread as ordered list markers.
+- **Browser-Only Architecture**: Operates entirely client-side. The page can be loaded directly from local storage (`index.html`) or hosted statically (e.g., GitHub Pages).
+- **Offline Exports**: The exported HTML notes viewer inlines `marked.js` so it functions fully offline, while MathJax is dynamically loaded from a CDN as needed.
+- **Interactive Preview**: Features a live side-by-side editing and previewing pane.
 
 ## How to Use
 
-1. Open `index.html` directly in any browser
-2. Upload a `.md` file using the file picker
-3. The rendered HTML preview appears instantly
-
-No server required. Works fully offline.
+1. Open `index.html` in any web browser or visit the [Live Demo](https://poltorprogrammer.github.io/RenderDown/).
+2. Paste Markdown text or drag-and-drop a `.md` file into the editor.
+3. Preview the rendered document in real-time.
+4. Export the document:
+   - Click **Download Viewer** to save a standalone interactive notes page.
+   - Click **Download PDF** to open the print interface (ensure pop-ups are allowed) and select **Save as PDF**.
 
 ## Project Structure
 
-| File | Role |
+| File / Folder | Description |
 |---|---|
-| `index.html` | UI and file upload interface |
-| `style.css` | Preview and app styling |
-| `app.js` | File handling and orchestration |
-| `markdown-parser.js` | Core conversion engine |
+| `index.html` | The main editor UI and orchestrator. |
+| `assets/app.js` | Manages file reading, drag-and-drop events, and template generation. |
+| `assets/viewer-template.js` | The layout and script template used for exporting the interactive notes viewer. |
+| `assets/print-template.js` | The styling template for generating clean PDF exports. |
+| `legacy/` | Contains the original Node.js and Python/pandoc local scripts for comparison. |
 
 ## Relation to This Portfolio
 
-The Markdown rendering system powering this very portfolio — parsing frontmatter and converting project `.md` files to HTML — draws directly from the parsing approach developed in RenderDown.
+The Markdown parsing and static conversion mechanisms used to generate the project logs on this portfolio website are inspired by the templates and concepts designed in RenderDown.
