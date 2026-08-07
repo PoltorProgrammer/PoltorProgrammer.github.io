@@ -1,0 +1,22 @@
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 768px) {
+    .nav-links  { display: none; }
+    .hamburger  { display: flex; }
+
+    .hero-name  { letter-spacing: -1.5px; }
+    .stats-strip { gap: 1rem; padding: 0.75rem 1.4rem; }
+
+    .project-grid { grid-template-columns: 1fr; }
+    .project-title { letter-spacing: -0.8px; }
+    .project-main { padding: 2.5rem 0 4rem; }
+}
+
+@media (max-width: 480px) {
+    .container { padding: 0 1.25rem; }
+    .hero-cta   { flex-direction: column; align-items: center; }
+    .stats-strip { flex-wrap: wrap; justify-content: center; }
+    .stat-divider { display: none; }
+    .project-actions { flex-direction: column; }
+}
